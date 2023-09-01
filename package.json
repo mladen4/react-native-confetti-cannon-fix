@@ -37,7 +37,8 @@
     "flow": "flow src",
     "test:unit": "jest src",
     "prepare": "npm run build:js && npm run build:types",
-    "build:js": "babel src --out-dir lib -s --copy-files"
+    "build:js": "babel src --out-dir lib -s --copy-files",
+    "build:types": "flow-copy-source src lib"
   },
   "contributors": [
     "Vincent Catillon <contact@vincent-catillon.fr>",
@@ -47,6 +48,8 @@
   ],
   "author": "Vincent Catillon",
   "devDependencies": {
+    "flow-bin": "^0.113.0",
+    "flow-copy-source": "^2.0.2",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.19.1",
