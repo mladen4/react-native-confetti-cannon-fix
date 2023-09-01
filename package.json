@@ -37,7 +37,7 @@
     "flow": "flow src",
     "test:unit": "jest src",
     "prepare": "npm run build:js && npm run build:types",
-    "build:js": "babel src --out-dir lib -s --copy-files",
+    "build:js": "babel src --out-dir lib -s --copy-files"
   },
   "contributors": [
     "Vincent Catillon <contact@vincent-catillon.fr>",
