@@ -10,6 +10,7 @@ export interface ExplosionProps {
   fallSpeed?: number;
   colors?: string[];
   fadeOut?: boolean;
+  shouldFallDown?: boolean;
   autoStart?: boolean;
   autoStartDelay?: number;
   onAnimationStart?: () => void;
