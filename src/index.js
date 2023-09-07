@@ -14,7 +14,6 @@ type Props = {
   fallSpeed?: number,
   colors?: Array<string>,
   fadeOut?: boolean,
-  shouldFallDown?: boolean,
   autoStart?: boolean,
   autoStartDelay?: number,
   onAnimationStart?: () => void,
@@ -130,7 +129,6 @@ class Explosion extends React.Component<Props, State> {
       const {
         explosionSpeed = DEFAULT_EXPLOSION_SPEED,
         fallSpeed = DEFAULT_FALL_SPEED,
-        shouldFallDown,
         onAnimationStart,
         onAnimationResume,
         onAnimationEnd
@@ -142,13 +140,13 @@ class Explosion extends React.Component<Props, State> {
           Animated.timing(this.animation, { toValue: 0, duration: 0, useNativeDriver: true }),
           Animated.timing(this.animation, {
             toValue: 1,
-            duration: shouldFallDown  ? explosionSpeed : explosionSpeed * 2,
+            duration: explosionSpeed,
             easing: Easing.out(Easing.quad),
             useNativeDriver: true
           }),
           Animated.timing(this.animation, {
             toValue: 2,
-            duration: shouldFallDown ? fallSpeed : 0,
+            duration: fallSpeed,
             easing: Easing.quad,
             useNativeDriver: true
           }),
@@ -177,7 +175,7 @@ class Explosion extends React.Component<Props, State> {
   };
 
   render() {
-    const { origin, fadeOut,shouldFallDown, topDeltaAdjustment, dontAnimateOpacity } = this.props;
+    const { origin, fadeOut, topDeltaAdjustment, dontAnimateOpacity } = this.props;
     const { items, showItems } = this.state;
     const { height, width } = Dimensions.get('window');
     const directionalityFactor = I18nManager.isRTL ? -1 : 1;
@@ -196,10 +194,9 @@ class Explosion extends React.Component<Props, State> {
               directionalityFactor * item.leftDelta * width
             ]
           });
-          const temp = shouldFallDown ?  [-origin.y, -item.topDelta * height, 0, 0] : [-origin.y, -item.topDelta * height+200,-item.topDelta * height+200,-item.topDelta * height+200];
           const top = this.animation.interpolate({
             inputRange: [0, 1, 1 + item.topDelta, 2],
-            outputRange: temp
+            outputRange: [-origin.y, -item.topDelta * height, 0, 0]
           });
           const rotateX = this.animation.interpolate({
             inputRange: [0, 2],
